@@ -1,0 +1,133 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SOLID Practice",
+    "description": "API for Practice SOLID principles",
+    "version": "1.0.0",
+    "contact": {
+      "email": "joao.dourado96@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a Users",
+        "description": "Create a new users",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Name user sample",
+                  "email": "user@provider.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "User already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all users",
+        "description": "Request for show all users",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": "true",
+            "description": "User id for return all users. User must be an admin",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "User not found of not authorized"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Turn user a admin",
+        "description": "Elevate privileges of a user for admin",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": "true",
+            "description": "User id for transform in admin",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Updated"
+          },
+          "404": {
+            "description": "User dont exists in database"
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Show user",
+        "description": "Show infos of especific user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": "true",
+            "description": "User id for show informations",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  }
+}
